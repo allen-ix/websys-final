@@ -1,4 +1,4 @@
-
+require('dotenv').config();
 import mysql from 'mysql2/promise';
 
 export async function query(sql, values) {
