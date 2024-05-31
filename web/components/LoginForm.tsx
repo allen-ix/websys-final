@@ -29,7 +29,7 @@ const LoginForm = () => {
 
   return (
     <Formik
-      initialValues={{ username: '', password: '' }}
+      initialValues={{ username: '', email: '', password: '' }}
       validationSchema={LoginSchema}
       onSubmit={async (values, { setSubmitting }) => {
         try {
