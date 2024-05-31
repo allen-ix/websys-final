@@ -18,7 +18,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const LoginSchema = Yup.object().shape({
-  email: Yup.string().email('Invalid email').required('Email is required'),
+  username: Yup.string().required('Username is required'),
+  email: Yup.string().required('Email is required'),
   password: Yup.string().required('Password is required'),
 });
 
@@ -28,7 +29,7 @@ const LoginForm = () => {
 
   return (
     <Formik
-      initialValues={{ email: '', password: '' }}
+      initialValues={{ username: '', password: '' }}
       validationSchema={LoginSchema}
       onSubmit={async (values, { setSubmitting }) => {
         try {
@@ -43,6 +44,16 @@ const LoginForm = () => {
     >
       {({ isSubmitting, errors, touched }) => (
         <Form>
+          <Box mb={2}>
+            <Field
+              as={TextField}
+              name="username"
+              label="User name"
+              fullWidth
+              error={touched.username && !!errors.username}
+              helperText={touched.username && errors.username}
+            />
+          </Box>
           <Box mb={2}>
             <Field
               as={TextField}
@@ -70,6 +81,7 @@ const LoginForm = () => {
             fullWidth
             className={classes.button}
             disabled={isSubmitting}
+            style={{ backgroundColor: '#1976D2', color: '#FFFFFF' }}
           >
             Login
           </Button>

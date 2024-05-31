@@ -15,16 +15,16 @@ interface Employee {
   firstname: string;
   lastname: string;
   email: string;
-  position: string;
-  bio: string;
+  section: string;
+  age: number;
 }
 
 const EmployeeSchema = Yup.object().shape({
   firstname: Yup.string().required('First name is required'),
   lastname: Yup.string().required('Last name is required'),
   email: Yup.string().email('Invalid email').required('Email is required'),
-  position: Yup.string().required('Position is required'),
-  bio: Yup.string(),
+  section: Yup.string().required('Section is required'),
+  age: Yup.number(),
 });
 
 const fetcher = (url: string) => axios.get(url).then((res) => res.data);
@@ -63,30 +63,28 @@ const EmployeeProfileForm = () => {
 
   return (
     <div className="employee-form-container">
-      <AppBar className="app-bar" position="static">
-        <Toolbar className="toolbar" style={{ backgroundColor: '#4EA685', height: '80px' }}>
-          <Typography variant="h5" className="title">
-            Employee Management
-          </Typography>
-          <Link href="/profile" variant="h5" className="link1" style={{ margin: '0 10px', marginLeft: '1200px', color: '#fff' }}>
-            Profile
-          </Link>
-          <Link href="/employee-profile" variant="h5" className="link1" style={{ margin: '0 10px', color: '#fff'  }}>
-            Employee Profile
-          </Link>
-          <Link href="/" variant="h5" className="link1" style={{ margin: '0 10px', color: '#fff'  }}>
-            Logout
-          </Link>
-        </Toolbar>
-      </AppBar>
-      <Container maxWidth="lg" style={{ marginTop: 50, backgroundColor: '#8e8e8e' }}>
-        <Paper className="paper" style={{backgroundColor: '#c0c0c0' }}>
+    <AppBar className="app-bar" position="static">
+      <Toolbar className="toolbar" style={{ backgroundColor: '#1976D2', height: '80px', justifyContent: 'flex-start'}}>
+        <Link href="/profile" variant="h5" className="link1" style={{ margin: '0 10px', color: '#fff' }}>
+          Account
+        </Link>
+        <Link href="/employee-profile" variant="h5" className="link1" style={{ margin: '0 10px', color: '#fff'  }}>
+          Student Profile
+        </Link>
+        <Link href="/" variant="h5" className="link1" style={{ margin: '0 10px', color: '#fff'  }}>
+          Logout
+        </Link>
+      </Toolbar>
+    </AppBar>
+
+      <Container maxWidth="lg" style={{ marginTop: 50, backgroundColor: '#E1F5FE' }}>
+        <Paper className="paper" style={{backgroundColor: '#BBDEFB' }}>
           <Typography variant="h4" className="form-title" gutterBottom>
-            Employee Profiles
+            Student Profiles
           </Typography>
           <TextField style={{ width: '1200px', marginLeft:'18px', outlineColor: '#fff' }}
             className="search-field"
-            label="Search by name or position"
+            label="Search by name or section"
             variant="outlined"
             fullWidth
             value={searchQuery}
@@ -104,20 +102,20 @@ const EmployeeProfileForm = () => {
             variant="contained"
             color="primary"
             startIcon={<Add />}
-            style={{ marginTop: -230, backgroundColor: '#4ea685', color: '#fff', marginLeft: 1100 }}
+            style={{ marginTop: -230, backgroundColor: '#1976D2', color: '#fff', marginLeft: 1100 }}
             onClick={() => setOpen(true)}
           >
             Add New
           </Button>
-          <TableContainer className="table-container" component={Paper} style={{backgroundColor: '#c0c0c0' }} >
+          <TableContainer className="table-container" component={Paper} style={{backgroundColor: '#E1F5FE' }} >
             <Table >
               <TableHead>
                 <TableRow>
                   <TableCell>No.</TableCell>
                   <TableCell>Name</TableCell>
                   <TableCell>Email</TableCell>
-                  <TableCell>Position</TableCell>
-                  <TableCell>Bio</TableCell>
+                  <TableCell>Section</TableCell>
+                  <TableCell>Age</TableCell>
                   <TableCell>Action</TableCell>
                 </TableRow>
               </TableHead>
@@ -127,8 +125,8 @@ const EmployeeProfileForm = () => {
                     <TableCell>{index + 1}</TableCell>
                     <TableCell>{`${employee.firstname} ${employee.lastname}`}</TableCell>
                     <TableCell>{employee.email}</TableCell>
-                    <TableCell>{employee.position}</TableCell>
-                    <TableCell>{employee.bio}</TableCell>
+                    <TableCell>{employee.section}</TableCell>
+                    <TableCell>{employee.age}</TableCell>
                     <TableCell>
                       <Tooltip title="Edit">
                         <IconButton onClick={() => handleEdit(employee.id)}>
@@ -153,8 +151,8 @@ const EmployeeProfileForm = () => {
               <Formik
                 initialValues={
                   isEditing === null
-                    ? { firstname: '', lastname: '', email: '', position: '', bio: '' }
-                    : data.find(emp => emp.id === isEditing) || { firstname: '', lastname: '', email: '', position: '', bio: '' }
+                    ? { firstname: '', lastname: '', email: '', section: '', age: '' }
+                    : data.find(emp => emp.id === isEditing) || { firstname: '', lastname: '', email: '', section: '', age: '' }
                 }
                 validationSchema={EmployeeSchema}
                 onSubmit={async (values, { setSubmitting, resetForm }) => {
@@ -204,17 +202,17 @@ const EmployeeProfileForm = () => {
                     />
                     <Field
                       as={TextField}
-                      name="position"
-                      label="Position"
+                      name="section"
+                      label="Section"
                       fullWidth
-                      error={touched.position && !!errors.position}
-                      helperText={touched.position && errors.position}
+                      error={touched.section && !!errors.section}
+                      helperText={touched.section && errors.section}
                       style={{ marginBottom: 20 }}
                     />
                     <Field
                       as={TextField}
-                      name="bio"
-                      label="Bio"
+                      name="age"
+                      label="Age"
                       fullWidth
                       multiline
                       rows={4}
@@ -222,7 +220,7 @@ const EmployeeProfileForm = () => {
                     />
                     <DialogActions>
                       <Button
-                        style={{backgroundColor: '#4EA685'}}
+                        style={{backgroundColor: '#1976D2'}}
                         className="submit-button"
                         type="submit"
                         variant="contained"
@@ -231,7 +229,7 @@ const EmployeeProfileForm = () => {
                         Save
                       </Button>
                       <Button
-                        style={{backgroundColor: '#4EA685'}}
+                        style={{backgroundColor: '#1976D2'}}
                         className="cancel-button"
                         variant="contained"
                         onClick={handleClose}
@@ -246,9 +244,9 @@ const EmployeeProfileForm = () => {
           </Dialog>
         </Paper>
       </Container>
-      <footer className="footer1" style={{ backgroundColor: '#4EA685', height: '50px' }}>
+      <footer className="footer1" style={{ backgroundColor: '#1976D2', height: '50px' }}>
         <Typography variant="body1" style={{ margin: '0 10px', marginTop: '540px', textAlign: 'center' }}>
-          © {new Date().getFullYear()} LorenzLucio. All rights reserved.
+          © {new Date().getFullYear()} PalSU. All rights reserved.
         </Typography>
       </footer>
     </div>

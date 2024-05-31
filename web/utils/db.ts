@@ -3,8 +3,8 @@ import mysql from 'mysql2/promise';
 const dbConfig = {
   host: 'localhost',
   user: 'root',
-  password: 'renz',
-  database: 'webfin',
+  password: 'allen',
+  database: 'websys',
 };
 
 export const connectToDatabase = async () => {

@@ -2,10 +2,10 @@
 import { query } from '../../utils/db';
 
 export default async function handler(req, res) {
-  const { firstname, email, password } = req.body;
+  const { firstname, lastname, username, email, password } = req.body;
   const result = await query(
-    `INSERT INTO users (firstname, email, password) VALUES (?, ?, ?)`,
-    [firstname, email, password]
+    `INSERT INTO users (firstname, lastname, username, email, password) VALUES (?, ?, ?, ?, ?)`,
+    [firstname, lastname, username, email, password]
   );
   res.status(201).json(result);
 }

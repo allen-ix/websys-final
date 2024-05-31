@@ -1,6 +1,5 @@
-
 import React, { useState } from 'react';
-import { Tabs, Tab, Box, Paper, Button } from '@material-ui/core';
+import { Tabs, Tab, Box, Paper } from '@material-ui/core';
 import LoginForm from '../components/LoginForm';
 import SignupForm from '../components/SignupForm';
 import { makeStyles } from '@material-ui/core/styles';
@@ -26,13 +25,12 @@ const useStyles = makeStyles((theme) => ({
   tabContent: {
     padding: theme.spacing(2),
   },
-  prompt: {
-    display: 'flex',
-    flexDirection: 'column',
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: theme.spacing(4),
-    backgroundColor: '#4EA685',
+  tab: {
+    backgroundColor: '#1976D2',
+    color: 'white',
+    '&.Mui-selected': {
+      backgroundColor: '#115293', 
+    },
   },
 }));
 
@@ -49,36 +47,13 @@ const Home = () => {
       <Paper className={classes.formWrapper}>
         <Box className={classes.form}>
           <Tabs value={tabIndex} onChange={handleChange} centered>
-            <Tab label="Login" />
-            <Tab label="Signup" />
+            <Tab label="Login" className={classes.tab} />
+            <Tab label="Signup" className={classes.tab} />
           </Tabs>
           <Box className={classes.tabContent}>
             {tabIndex === 0 && <LoginForm />}
             {tabIndex === 1 && <SignupForm />}
           </Box>
-        </Box>
-        <Box className={classes.prompt}>
-          {tabIndex === 0 ? (
-            <>
-              <h3>Don't have an account?</h3>
-              <Button
-                onClick={() => setTabIndex(1)}
-                variant="contained"
-              >
-                Sign Up
-              </Button>
-            </>
-          ) : (
-            <>
-              <h3>Already have an account?</h3>
-              <Button
-                onClick={() => setTabIndex(0)}
-                variant="contained"
-              >
-                Login
-              </Button>
-            </>
-          )}
         </Box>
       </Paper>
     </Box>

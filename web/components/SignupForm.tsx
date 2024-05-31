@@ -18,6 +18,8 @@ const useStyles = makeStyles((theme) => ({
 
 const SignupSchema = Yup.object().shape({
   firstname: Yup.string().required('First name is required'),
+  lastname: Yup.string().required('Last name is required'),
+  username: Yup.string().required('User name is required'),
   email: Yup.string().email('Invalid email').required('Email is required'),
   password: Yup.string().min(6, 'Password must be at least 6 characters').required('Password is required'),
 });
@@ -29,9 +31,10 @@ const SignupForm = () => {
 
   return (
     <Formik
-      initialValues={{ firstname: '', email: '', password: '' }}
+      initialValues={{ firstname: '', lastname: '', username: '', email: '', password: '' }}
       validationSchema={SignupSchema}
       onSubmit={async (values, { setSubmitting }) => {
+        console.log('Form values:', values);
         try {
           await axios.post('/api/signup', values);
           setIsSuccess(true);
@@ -47,10 +50,30 @@ const SignupForm = () => {
             <Field
               as={TextField}
               name="firstname"
-              label="Company Name"
+              label="First Name"
               fullWidth
               error={touched.firstname && !!errors.firstname}
               helperText={touched.firstname && errors.firstname}
+            />
+          </Box>
+          <Box mb={2}>
+            <Field
+              as={TextField}
+              name="lastname"
+              label="Last Name"
+              fullWidth
+              error={touched.lastname && !!errors.lastname}
+              helperText={touched.lastname && errors.lastname}
+            />
+          </Box>
+          <Box mb={2}>
+            <Field
+              as={TextField}
+              name="username"
+              label="User Name"
+              fullWidth
+              error={touched.username && !!errors.username}
+              helperText={touched.username && errors.username}
             />
           </Box>
           <Box mb={2}>
@@ -80,6 +103,7 @@ const SignupForm = () => {
             fullWidth
             className={classes.button}
             disabled={isSubmitting || isSuccess}
+            style={{ backgroundColor: '#1976D2', color: '#FFFFFF' }}
           >
             {isSuccess ? 'Signup Successfull!' : 'Signup'}
           </Button>

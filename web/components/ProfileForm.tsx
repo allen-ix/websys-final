@@ -32,39 +32,46 @@ const ProfileForm = () => {
   return (
     <div className="employee-form-container">
     <AppBar className="app-bar" position="static">
-      <Toolbar className="toolbar" style={{ backgroundColor: '#4EA685', height: '80px' }}>
-        <Typography variant="h5" style={{ flexGrow: 1 }}>
-        My Application
-        </Typography>
-        <Link href="/profile" variant="h5" color="inherit" style={{ margin: '0 10px' }}>
-        Profile
-        </Link>
-        <Link href="/employee-profile" variant="h5" color="inherit" style={{ margin: '0 10px' }}>
-        Employee Profile
-        </Link>
-        <Link href="/" variant="h5" color="inherit" style={{ margin: '0 10px' }}>
-        Logout
-        </Link>
-    </Toolbar>
-      </AppBar>
-      <Container maxWidth="xs" style={{backgroundColor: '#8e8e8e' }}>
-        <Paper style={{ padding: 20, marginTop: 80, backgroundColor: '#c0c0c0'}}>
-          {!isEditing ? (
-            <div>
-              <Typography variant="subtitle1" gutterBottom style={{ textAlign: 'center' }}>
-                Company: {data.firstname}
-              </Typography>
-              <Typography variant="subtitle1" gutterBottom style={{ textAlign: 'center'}}>
-                Email: {data.email}
-              </Typography>
-              <Typography variant="subtitle1" gutterBottom style={{ textAlign: 'center' }}>
-                Bio: {data.bio}
-              </Typography>
-              <Button variant="contained" color="primary" style={{ marginLeft: 300, backgroundColor: '#4ea685'}} onClick={handleEdit}>
-                Edit
-              </Button>
-            </div>
-          ) : (
+      <Toolbar className="toolbar" style={{ backgroundColor: '#1976D2', height: '80px' }}>
+        <Button variant="text" color='inherit' style={{ margin: '0 10px' }}>
+          <Link href="/profile" variant="h5" color="inherit">
+            Account
+          </Link>
+        </Button>
+        <Button variant="text" color="inherit" style={{ margin: '0 10px' }}>
+          <Link href="/employee-profile" variant="h5" color="inherit">
+            Student Profile
+          </Link>
+        </Button>
+        <Button variant="text" color="inherit" style={{ margin: '0 10px' }}>
+          <Link href="/" variant="h5" color="inherit">
+            Logout
+          </Link>
+        </Button>
+      </Toolbar>
+    </AppBar>
+
+      <Container maxWidth="xs" style={{ backgroundColor: '#E1F5FE', paddingTop: 80 }}>
+      <Paper style={{ padding: 20, backgroundColor: '#BBDEFB' }}>
+        {!isEditing ? (
+          <div>
+            <Typography variant="h6" gutterBottom>
+              Faculty Member
+            </Typography>
+            <Typography variant="subtitle1" gutterBottom>
+              Name: {data.firstname + ' ' + data.lastname}
+            </Typography>
+            <Typography variant="subtitle1" gutterBottom>
+              Email: {data.email}
+            </Typography>
+            <Typography variant="subtitle1" gutterBottom>
+              Department: {data.department}
+            </Typography>
+            <Button variant="contained" color="primary" onClick={handleEdit} style={{ marginTop: 20 }}>
+              Edit
+            </Button>
+          </div>
+        ) : (
             <Formik
               initialValues={{
                 firstname: data.firstname,
@@ -106,8 +113,8 @@ const ProfileForm = () => {
                   />
                   <Field
                     as={TextField}
-                    name="bio"
-                    label="Bio"
+                    name="department"
+                    label="Department"
                     fullWidth
                     multiline
                     rows={4}
@@ -115,16 +122,16 @@ const ProfileForm = () => {
                   <Button
                     type="submit"
                     variant="contained"
-                    // color="primary"
                     disabled={isSubmitting}
-                    style={{ marginRight: 10, backgroundColor: '#4EA685', marginTop: '18px' }}
+                    style={{ marginRight: 10, color:"#1976D2", marginTop: '18px' }}
+                    
                   >
                     Save
                   </Button>
                   <Button
-                    style={{backgroundColor: '#4EA685', marginTop: '18px' }}
+                    style={{color: '#1976D2', marginTop: '18px' }}
                     variant="contained"
-                    // color="secondary"
+              
                     onClick={handleEdit}
                   >
                     Cancel
@@ -135,9 +142,9 @@ const ProfileForm = () => {
           )}
         </Paper>
       </Container>
-      <footer className="footer1" style={{ backgroundColor: '#4EA685', height: '50px' }}>
+      <footer className="footer1" style={{ backgroundColor: '#1976D2', height: '50px' }}>
         <Typography variant="body1" style={{ margin: '0 10px', marginTop: '545px', textAlign: 'center' }}>
-          © {new Date().getFullYear()} LorenzLucio. All rights reserved.
+          © {new Date().getFullYear()} PalSU. All rights reserved.
         </Typography>
       </footer>
     </div>

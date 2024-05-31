@@ -9,7 +9,7 @@ export default async function handler(req, res) {
       let employees;
       if (search) {
         employees = await query(
-          `SELECT * FROM employees WHERE firstname LIKE ? OR lastname LIKE ? OR position LIKE ?`,
+          `SELECT * FROM employees WHERE firstname LIKE ? OR lastname LIKE ? OR section LIKE ?`,
           [`%${search}%`, `%${search}%`, `%${search}%`]
         );
       } else {
@@ -18,18 +18,18 @@ export default async function handler(req, res) {
       res.status(200).json(employees);
       break;
     case 'POST':
-      const { firstname, lastname, email, position, bio } = req.body;
+      const { firstname, lastname, email, section, age } = req.body;
       await query(
-        `INSERT INTO employees (firstname, lastname, email, position, bio) VALUES (?, ?, ?, ?, ?)`,
-        [firstname, lastname, email, position, bio]
+        `INSERT INTO employees (firstname, lastname, email, section, age ) VALUES (?, ?, ?, ?, ?)`,
+        [firstname, lastname, email, section, age ]
       );
       res.status(201).json({ message: 'Employee added' });
       break;
     case 'PUT':
-      const { firstname: updateFirst, lastname: updateLast, email: updateEmail, position: updatePosition, bio: updateBio } = req.body;
+      const { firstname: updateFirst, lastname: updateLast, email: updateEmail, section: updateSection, age: updateAge } = req.body;
       await query(
-        `UPDATE employees SET firstname = ?, lastname = ?, email = ?, position = ?, bio = ? WHERE id = ?`,
-        [updateFirst, updateLast, updateEmail, updatePosition, updateBio, id]
+        `UPDATE employees SET firstname = ?, lastname = ?, email = ?, section = ?, age = ? WHERE id = ?`,
+        [updateFirst, updateLast, updateEmail, updateSection, updateAge, id]
       );
       res.status(200).json({ message: 'Employee updated' });
       break;
